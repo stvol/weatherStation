@@ -26,6 +26,8 @@ stWSReturn.getCity = @getCity;
 stWSReturn.getDateForDay = @getDateForDay;
 stWSReturn.getNameForDay = @getNameForDay;
 stWSReturn.getWeatherNameForDay = @getWeatherNameForDay;
+stWSReturn.getWindDataForDay = @getWindDataForDay;
+stWSReturn.getHumidityDataForDay = @getHumidityDataForDay;
 
 % member variables
 m_szCity = '';
@@ -161,6 +163,17 @@ end
                 szWeatherName = 'Hochnebel';
         end
         
+    end
+
+    function szWindData = getWindDataForDay(iDayNum)
+        szWindSpeed = m_stWSData.children{1}.children{5}.children{iDayNum}.children{4}.attributes.mps;
+        szWindDirection = m_stWSData.children{1}.children{5}.children{iDayNum}.children{3}.attributes.code;
+        szWindDirection = strrep(szWindDirection,'E','O');
+        szWindData = [szWindSpeed ,' m/s  ',szWindDirection];
+    end
+
+    function szHumidityData = getHumidityDataForDay(iDayNum)
+        szHumidityData = m_stWSData.children{1}.children{5}.children{iDayNum}.children{7}.attributes.value;
     end
 %-------------------------------------------------------------------------%
 
