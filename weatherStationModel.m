@@ -28,6 +28,9 @@ stWSReturn.getNameForDay = @getNameForDay;
 stWSReturn.getWeatherNameForDay = @getWeatherNameForDay;
 stWSReturn.getWindDataForDay = @getWindDataForDay;
 stWSReturn.getHumidityDataForDay = @getHumidityDataForDay;
+stWSReturn.getPressureDataForDay = @getPressureDataForDay;
+stWSReturn.init = @init;
+stWSReturn.error = false;
 
 % member variables
 m_szCity = '';
@@ -56,6 +59,7 @@ function init(szCityName)
     
     if bStatus == 0
         stWSReturn.error = true;
+        return;
     else
         xml = xmlread(szFileString);
         m_stWSData = parse_xml(xml);
@@ -84,12 +88,6 @@ end
     function szDayTemp = getMeanTempForDay(iDayNum)
         szDayTemp = m_stWSData.children{1}.children{5}.children{iDayNum}.children{5}.attributes.day;
         szDayTemp = strrep(szDayTemp,'.',',');
-    end
-
-%-------------------------------------------------------------------------%
-
-    function szMaxTemp = getMaxTempForDay(iDayNum)
-        szMaxTemp = m_stWSData.children{1}.children{5}.children{iDayNum}.children{5}.attributes.max;
     end
 
 %-------------------------------------------------------------------------%
@@ -143,23 +141,23 @@ end
         szWeatherVar = m_stWSData.children{1}.children{5}.children{iDayNum}.children{1}.attributes.var;
         
         switch szWeatherVar
-            case '01d'
+            case {'01d','01n'}
                 szWeatherName = 'klar';
-            case '02d'
+            case {'02d','02n'}
                 szWeatherName = 'leicht bewölkt';
-            case '03d'
+            case {'03d','03n'}
                 szWeatherName = 'aufgelockert';
-            case '04d'
-                szWeatherName = 'bedeckt'
-            case '09d'
+            case {'04d','04n'}
+                szWeatherName = 'bedeckt';
+            case {'09d','09n'}
                 szWeatherName = 'leichte Schauer';
-            case '10d'
+            case {'10d','10n'}
                 szWeatherName = 'Regen';
-            case '11d'
+            case {'11d','11n'}
                 szWeatherName = 'Sturmregen';
-            case '13d'
+            case {'13d','13n'}
                 szWeatherName = 'Schnee';
-            case '50d'
+            case {'50d','50n'}
                 szWeatherName = 'Hochnebel';
         end
         
@@ -174,6 +172,12 @@ end
 
     function szHumidityData = getHumidityDataForDay(iDayNum)
         szHumidityData = m_stWSData.children{1}.children{5}.children{iDayNum}.children{7}.attributes.value;
+    end
+
+    function szPressureData = getPressureDataForDay(iDayNum)
+        szPressureData = m_stWSData.children{1}.children{5}.children{iDayNum}.children{6}.attributes.value;
+        szPressureUnit = m_stWSData.children{1}.children{5}.children{iDayNum}.children{6}.attributes.unit;
+        szPressureData = [szPressureData, ' ', szPressureUnit];
     end
 %-------------------------------------------------------------------------%
 

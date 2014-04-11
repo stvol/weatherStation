@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<weatherdata>
+  <location>
+    <name>Hannover</name>
+    <type/>
+    <country>DE</country>
+    <timezone/>
+    <location altitude="0" latitude="52.370522" longitude="9.73322" geobase="geonames" geobaseid="0"/>
+  </location>
+  <credit/>
+  <meta>
+    <lastupdate/>
+    <calctime>0.3115</calctime>
+    <nextupdate/>
+  </meta>
+  <sun rise="2014-04-11T04:31:11" set="2014-04-11T18:12:49"/>
+  <forecast>
+    <time day="2014-04-10">
+      <symbol number="501" name="moderate rain" var="10d"/>
+      <precipitation value="6.51" type="rain"/>
+      <windDirection deg="307" code="NW" name="Northwest"/>
+      <windSpeed mps="3.96" name="Gentle Breeze"/>
+      <temperature day="10.63" min="6.55" max="10.63" night="6.55" eve="9.73" morn="10.63"/>
+      <pressure unit="hPa" value="1011.42"/>
+      <humidity value="0" unit="%"/>
+      <clouds value="broken clouds" all="54" unit="%"/>
+    </time>
+    <time day="2014-04-11">
+      <symbol number="500" name="light rain" var="10d"/>
+      <precipitation value="0.5" type="rain"/>
+      <windDirection deg="345" code="NNW" name="North-northwest"/>
+      <windSpeed mps="2.86" name="Light breeze"/>
+      <temperature day="8.47" min="5.49" max="9.64" night="5.49" eve="7.77" morn="6.36"/>
+      <pressure unit="hPa" value="1016.53"/>
+      <humidity value="100" unit="%"/>
+      <clouds value="scattered clouds" all="36" unit="%"/>
+    </time>
+    <time day="2014-04-12">
+      <symbol number="802" name="scattered clouds" var="03d"/>
+      <precipitation/>
+      <windDirection deg="239" code="WSW" name="West-southwest"/>
+      <windSpeed mps="1.87" name="Light breeze"/>
+      <temperature day="9.11" min="5.55" max="9.62" night="6.73" eve="8.67" morn="5.55"/>
+      <pressure unit="hPa" value="1019.23"/>
+      <humidity value="100" unit="%"/>
+      <clouds value="scattered clouds" all="48" unit="%"/>
+    </time>
+    <time day="2014-04-13">
+      <symbol number="500" name="light rain" var="10d"/>
+      <precipitation value="1" type="rain"/>
+      <windDirection deg="265" code="W" name="West"/>
+      <windSpeed mps="6.51" name="Moderate breeze"/>
+      <temperature day="13.44" min="6.29" max="13.87" night="8.34" eve="11.96" morn="6.29"/>
+      <pressure unit="hPa" value="1017.08"/>
+      <humidity value="78" unit="%"/>
+      <clouds value="sky is clear" all="0" unit="%"/>
+    </time>
+    <time day="2014-04-14">
+      <symbol number="803" name="broken clouds" var="04d"/>
+      <precipitation/>
+      <windDirection deg="291" code="WNW" name="West-northwest"/>
+      <windSpeed mps="9.71" name="Fresh Breeze"/>
+      <temperature day="9.75" min="6.62" max="10.49" night="7.05" eve="8.81" morn="6.62"/>
+      <pressure unit="hPa" value="1013.44"/>
+      <humidity value="82" unit="%"/>
+      <clouds value="broken clouds" all="68" unit="%"/>
+    </time>
+  </forecast>
+</weatherdata>
+
