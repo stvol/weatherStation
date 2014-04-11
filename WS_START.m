@@ -10,8 +10,9 @@ clc;
 %------------Your script starts here-------- 
 
 stWeather = weatherStationModel('Oldenburg');
+stWeather.init()
 handles = WeatherStationGUI();
-updateWeather(handles,stWeather);
+updateWeather(handles,stWeather,0);
 
 
 %--------------------Licence ---------------------------------------------

@@ -1,4 +1,4 @@
-function updateWeather(handles,stWeather)
+function updateWeather(handles,stWeather,bIsUpdate)
 % function to do something usefull (fill out)
 % Usage [out_param] = updateWeather(in_param)
 % Input Parameter:
@@ -14,6 +14,9 @@ function updateWeather(handles,stWeather)
 
 %------------Your function implementation here--------------------------- 
 
+if bIsUpdate
+    stWeather.init(bIsUpdate);
+end
 
 set(handles.h_CityName,'String',[char(stWeather.getCity()),',',char(stWeather.getCountry())]);
 

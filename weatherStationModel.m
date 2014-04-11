@@ -30,39 +30,52 @@ stWSReturn.getWindDataForDay = @getWindDataForDay;
 stWSReturn.getHumidityDataForDay = @getHumidityDataForDay;
 stWSReturn.getPressureDataForDay = @getPressureDataForDay;
 stWSReturn.init = @init;
-stWSReturn.error = false;
+stWSReturn.error = 0;
 
 % member variables
-m_szCity = '';
+m_szCity = szCity;
 m_stWSData = struct();
 m_bIsInit = 0;
 
 
 % init weatherStationModel
-init(szCity);
+%init(szCity);
 
 
 %-------------------------------------------------------------------------%
 %--------------------------- PRIVATE FUNCTIONS ---------------------------%
 %-------------------------------------------------------------------------%
 
-function init(szCityName)
-    m_szCity = szCityName;
-    bStatus = 1;
+function bError = init(bIsUpdate,szCityName)
+    
+    if nargin > 1
+        m_szCity = szCityName;
+    end
+    
+    if nargin < 1
+        bIsUpdate = 0;
+    end
+    
+    %m_szCity = szCityName;
+    szFileString = ['data/',m_szCity,'.xml'];
+    bStatus = 0;
+    bError = 0;
+    
     % check wether weather file exists
-    if exist([m_szCity,'.xml'],'file')
+    if exist(szFileString,'file')
         
         % check age of File
-        stFileInfo = dir([m_szCity,'.xml']);
+        stFileInfo = dir(szFileString);
         dFileAge = stFileInfo.datenum;
         dNow = now();
         Difference = abs(dFileAge(:) - dNow(:));
         
         iHours = round(mod(Difference, 1) * 24);
+        bStatus = 1;
         
         % if too old, prepare for get new one
-        if iHours > 5
-            delete([m_szCity,'.xml']);
+        if bIsUpdate == 1 || iHours > 5
+            delete(szFileString);
             bStatus = 0;
         end
     end
@@ -71,19 +84,16 @@ function init(szCityName)
     if bStatus == 0
         szString = ['http://api.openweathermap.org/data/2.5/forecast/daily?q=',...
         m_szCity,'&mode=xml&units=metric&cnt=5'];
-        [~,bStatus] = urlread(szString);
+        szFileContent = urlread(szString);
+        
+        if szFileContent(1) == '{'
+            bError = 1;
+            return
+        else
+            szFileString = urlwrite(szString,szFileString);
+        end   
     end
     
-    % check, wether city was found
-    if bStatus == 0
-        stWSReturn.error = true;
-        if exist([m_szCity,'.xml'],'file')
-            delete([m_szCity,'.xml']);
-        end
-        return;
-    else
-        szFileString = urlwrite(szString,[m_szCity,'.xml']);
-    end
     
     xml = xmlread(szFileString);
     m_stWSData = parse_xml(xml);
