@@ -48,23 +48,46 @@ init(szCity);
 
 function init(szCityName)
     m_szCity = szCityName;
-    if ~exist([m_szCity,'.xml'],'file')
-    szString = ['http://api.openweathermap.org/data/2.5/forecast/daily?q=',...
-        m_szCity,'&mode=xml&units=metric&cnt=5'];
-    [szFileString,bStatus] = urlwrite(szString,[m_szCity,'.xml']);
-    else
-       szFileString = [m_szCity,'.xml'];
-       bStatus = 1;
+    bStatus = 1;
+    % check wether weather file exists
+    if exist([m_szCity,'.xml'],'file')
+        
+        % check age of File
+        stFileInfo = dir([m_szCity,'.xml']);
+        dFileAge = stFileInfo.datenum;
+        dNow = now();
+        Difference = abs(dFileAge(:) - dNow(:));
+        
+        iHours = round(mod(Difference, 1) * 24);
+        
+        % if too old, prepare for get new one
+        if iHours > 5
+            delete([m_szCity,'.xml']);
+            bStatus = 0;
+        end
     end
     
+    % get File from server
+    if bStatus == 0
+        szString = ['http://api.openweathermap.org/data/2.5/forecast/daily?q=',...
+        m_szCity,'&mode=xml&units=metric&cnt=5'];
+        [~,bStatus] = urlread(szString);
+    end
+    
+    % check, wether city was found
     if bStatus == 0
         stWSReturn.error = true;
+        if exist([m_szCity,'.xml'],'file')
+            delete([m_szCity,'.xml']);
+        end
         return;
     else
-        xml = xmlread(szFileString);
-        m_stWSData = parse_xml(xml);
-        m_bIsInit = 1;
+        szFileString = urlwrite(szString,[m_szCity,'.xml']);
     end
+    
+    xml = xmlread(szFileString);
+    m_stWSData = parse_xml(xml);
+    m_bIsInit = 1;
 end
 
 
