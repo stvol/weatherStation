@@ -30,6 +30,7 @@ while bError == 1
     dlg_title = 'Stadt Wählen';
     num_lines = 1;
     answer = inputdlg(prompt,dlg_title,num_lines);
+    if isempty(answer); return; end
     bError = stWeather.init(0,answer{1});
 end
 

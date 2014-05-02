@@ -9,6 +9,14 @@ clc;
 
 %------------Your script starts here-------- 
 
+% add folder to path
+x = mfilename('fullpath');
+[d,n,e]=fileparts(x);
+addpath(genpath(d));
+
+%feature('DefaultCharacterSet', 'UTF-8');
+set(0,'defaulttextinterpreter','none');
+
 stWeather = weatherStationModel('Oldenburg');
 stWeather.init()
 handles = WeatherStationGUI();

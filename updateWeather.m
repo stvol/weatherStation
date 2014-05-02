@@ -18,7 +18,7 @@ if bIsUpdate
     stWeather.init(bIsUpdate);
 end
 
-set(handles.h_CityName,'String',[char(stWeather.getCity()),',',char(stWeather.getCountry())]);
+set(handles.h_CityName,'String',['Wetteraussichten für: ',char(stWeather.getCity()),',',char(stWeather.getCountry())]);
 
 for ii = 1:5
    set(handles.h_dayDate(ii),'String',[char(stWeather.getDateForDay(ii))]);
@@ -26,8 +26,14 @@ for ii = 1:5
    set(handles.h_dayTemp(ii),'String',[char(stWeather.getMeanTempForDay(ii)),' °C']);
    set(handles.h_nightTemp(ii),'String',[char(stWeather.getNightTempForDay(ii)),' °C']);
    
-   imagname = [stWeather.getCloudsNameForDay(ii),'d.jpg'];
-   imshow(imagname,'InitialMagnification','fit','Parent',handles.h_CloudsPic(ii));
+   imagename = [stWeather.getCloudsNameForDay(ii),'d.jpg'];
+   image2display = imread(imagename);
+   handles.h_CloudsPic(ii)
+   axes(handles.h_CloudsPic(ii));
+   image([0 1],[0 1],image2display);
+   axis off;
+   axis normal;
+   whitebg('white')
    
    set(handles.h_CloudName(ii),'String',[char(stWeather.getWeatherNameForDay(ii))]);
    set(handles.h_WindData(ii),'String',[char(stWeather.getWindDataForDay(ii))]);

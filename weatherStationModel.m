@@ -46,7 +46,14 @@ m_bIsInit = 0;
 %--------------------------- PRIVATE FUNCTIONS ---------------------------%
 %-------------------------------------------------------------------------%
 
-function bError = init(bIsUpdate,szCityName)
+    function bError = update()
+       if ~m_bIsInit; bError = 1; return; end;
+       
+        
+    end
+    
+    
+    function bError = init(bIsUpdate,szCityName)
     
     if nargin > 1
         m_szCity = szCityName;
@@ -84,13 +91,13 @@ function bError = init(bIsUpdate,szCityName)
     if bStatus == 0
         szString = ['http://api.openweathermap.org/data/2.5/forecast/daily?q=',...
         m_szCity,'&mode=xml&units=metric&cnt=5'];
-        szFileContent = urlread(szString);
+        szFileContent = urlread(szString,'Charset','ISO-8859-1');
         
-        if szFileContent(1) == '{'
+        if szFileContent(1) == '{' || strcmpi(m_szCity,'test')
             bError = 1;
             return
         else
-            szFileString = urlwrite(szString,szFileString);
+            szFileString = urlwrite(szString,szFileString,'Charset','ISO-8859-1');
         end   
     end
     
