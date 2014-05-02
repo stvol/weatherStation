@@ -18,9 +18,8 @@ addpath(genpath(d));
 set(0,'defaulttextinterpreter','none');
 
 stWeather = weatherStationModel('Oldenburg');
-stWeather.init()
 handles = WeatherStationGUI();
-updateWeather(handles,stWeather,0);
+updateGUI(handles,stWeather);
 
 
 %--------------------Licence ---------------------------------------------

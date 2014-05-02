@@ -1,4 +1,4 @@
-function updateWeather(handles,stWeather,bIsUpdate)
+function updateGUI(handles,stWeather)
 % function to do something usefull (fill out)
 % Usage [out_param] = updateWeather(in_param)
 % Input Parameter:
@@ -13,10 +13,6 @@ function updateWeather(handles,stWeather,bIsUpdate)
 % Ver. 0.01 initial create (empty) 10-Apr-2014  Initials (eg. JB)
 
 %------------Your function implementation here--------------------------- 
-
-if bIsUpdate
-    stWeather.init(bIsUpdate);
-end
 
 set(handles.h_CityName,'String',['Wetteraussichten für: ',char(stWeather.getCity()),',',char(stWeather.getCountry())]);
 

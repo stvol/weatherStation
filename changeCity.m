@@ -23,18 +23,17 @@ answer = inputdlg(prompt,dlg_title,num_lines);
 
 if isempty(answer); return; end
 
-bError = stWeather.init(0,answer{1});
+bError = stWeather.changeStation(answer{1});
 
 while bError == 1
     prompt = {'Die gewünschte Stadt konnte nicht gefunden werden. Bitte nochmal:'};
-    dlg_title = 'Stadt Wählen';
+    dlg_title = 'Stadt wählen';
     num_lines = 1;
     answer = inputdlg(prompt,dlg_title,num_lines);
     if isempty(answer); return; end
-    bError = stWeather.init(0,answer{1});
+    bError = stWeather.changeStation(answer{1});
 end
-
-updateWeather(handles,stWeather,0);
+updateGUI(handles,stWeather);
 
 
 

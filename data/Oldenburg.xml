@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<weatherdata>
+  <location>
+    <name>Oldenburg</name>
+    <type/>
+    <country>DE</country>
+    <timezone/>
+    <location altitude="0" latitude="53.166672" longitude="8.2" geobase="geonames" geobaseid="0"/>
+  </location>
+  <credit/>
+  <meta>
+    <lastupdate/>
+    <calctime>0.6936</calctime>
+    <nextupdate/>
+  </meta>
+  <sun rise="2014-05-02T03:50:20" set="2014-05-02T18:57:56"/>
+  <forecast>
+    <time day="2014-05-02">
+      <symbol number="800" name="sky is clear" var="01d"/>
+      <precipitation/>
+      <windDirection deg="53" code="NE" name="NorthEast"/>
+      <windSpeed mps="5.71" name="Moderate breeze"/>
+      <temperature day="9.16" min="4.86" max="9.16" night="4.86" eve="9.16" morn="9.16"/>
+      <pressure unit="hPa" value="1035.44"/>
+      <humidity value="73" unit="%"/>
+      <clouds value="sky is clear" all="0" unit="%"/>
+    </time>
+    <time day="2014-05-03">
+      <symbol number="500" name="light rain" var="10d"/>
+      <precipitation value="0.5" type="rain"/>
+      <windDirection deg="335" code="NNW" name="North-northwest"/>
+      <windSpeed mps="4.36" name="Gentle Breeze"/>
+      <temperature day="10.8" min="5.02" max="10.89" night="5.02" eve="9.07" morn="6.67"/>
+      <pressure unit="hPa" value="1038.43"/>
+      <humidity value="90" unit="%"/>
+      <clouds value="sky is clear" all="8" unit="%"/>
+    </time>
+    <time day="2014-05-04">
+      <symbol number="802" name="scattered clouds" var="03d"/>
+      <precipitation/>
+      <windDirection deg="307" code="NW" name="Northwest"/>
+      <windSpeed mps="4.54" name="Gentle Breeze"/>
+      <temperature day="10.65" min="7" max="10.97" night="7" eve="9.65" morn="7.39"/>
+      <pressure unit="hPa" value="1035.07"/>
+      <humidity value="87" unit="%"/>
+      <clouds value="scattered clouds" all="44" unit="%"/>
+    </time>
+    <time day="2014-05-05">
+      <symbol number="500" name="light rain" var="10d"/>
+      <precipitation value="0.5" type="rain"/>
+      <windDirection deg="199" code="SSW" name="South-southwest"/>
+      <windSpeed mps="4.52" name="Gentle Breeze"/>
+      <temperature day="10.29" min="8.17" max="13.24" night="10.02" eve="13.24" morn="8.17"/>
+      <pressure unit="hPa" value="1030.55"/>
+      <humidity value="94" unit="%"/>
+      <clouds value="overcast clouds" all="92" unit="%"/>
+    </time>
+    <time day="2014-05-06">
+      <symbol number="500" name="light rain" var="10d"/>
+      <precipitation value="2" type="rain"/>
+      <windDirection deg="195" code="SSW" name="South-southwest"/>
+      <windSpeed mps="5.48" name=""/>
+      <temperature day="15.68" min="10.32" max="15.68" night="11.66" eve="13.4" morn="10.32"/>
+      <pressure unit="hPa" value="1019.89"/>
+      <humidity value="81" unit="%"/>
+      <clouds value="scattered clouds" all="48" unit="%"/>
+    </time>
+  </forecast>
+</weatherdata>
+

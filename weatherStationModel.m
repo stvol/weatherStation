@@ -29,82 +29,56 @@ stWSReturn.getWeatherNameForDay = @getWeatherNameForDay;
 stWSReturn.getWindDataForDay = @getWindDataForDay;
 stWSReturn.getHumidityDataForDay = @getHumidityDataForDay;
 stWSReturn.getPressureDataForDay = @getPressureDataForDay;
-stWSReturn.init = @init;
+stWSReturn.changeStation = @changeStation;
+stWSReturn.updateStation = @updateStation;
 stWSReturn.error = 0;
 
 % member variables
 m_szCity = szCity;
 m_stWSData = struct();
 m_bIsInit = 0;
+m_szFileString = '';
 
 
 % init weatherStationModel
-%init(szCity);
+init(szCity);
 
 
 %-------------------------------------------------------------------------%
 %--------------------------- PRIVATE FUNCTIONS ---------------------------%
 %-------------------------------------------------------------------------%
 
-    function bError = update()
-       if ~m_bIsInit; bError = 1; return; end;
-       
-        
-    end
+  
+
+
     
-    
-    function bError = init(bIsUpdate,szCityName)
-    
-    if nargin > 1
-        m_szCity = szCityName;
-    end
-    
-    if nargin < 1
-        bIsUpdate = 0;
-    end
-    
-    %m_szCity = szCityName;
-    szFileString = ['data/',m_szCity,'.xml'];
-    bStatus = 0;
-    bError = 0;
-    
-    % check wether weather file exists
-    if exist(szFileString,'file')
-        
-        % check age of File
-        stFileInfo = dir(szFileString);
-        dFileAge = stFileInfo.datenum;
-        dNow = now();
-        Difference = abs(dFileAge(:) - dNow(:));
-        
-        iHours = round(mod(Difference, 1) * 24);
-        bStatus = 1;
-        
-        % if too old, prepare for get new one
-        if bIsUpdate == 1 || iHours > 5
-            delete(szFileString);
-            bStatus = 0;
-        end
-    end
-    
-    % get File from server
-    if bStatus == 0
-        szString = ['http://api.openweathermap.org/data/2.5/forecast/daily?q=',...
-        m_szCity,'&mode=xml&units=metric&cnt=5'];
-        szFileContent = urlread(szString,'Charset','ISO-8859-1');
-        
-        if szFileContent(1) == '{' || strcmpi(m_szCity,'test')
+    function bError = checkCity(szCityName)
+       bError = 0;
+       szString = ['http://api.openweathermap.org/data/2.5/forecast/daily?q=',...
+            szCityName,'&mode=xml&units=metric&cnt=5'];
+       [szFileContent,st] = urlread(szString,'Charset','ISO-8859-1');
+
+       if isempty(szFileContent) ||...
+               szFileContent(1) == '{' || strcmpi(szCityName,'test') || st == 0
             bError = 1;
-            return
-        else
-            szFileString = urlwrite(szString,szFileString,'Charset','ISO-8859-1');
-        end   
+       end
+    end
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+    
+    function bError = init(szCityName)
+    
+    bError = checkCity(szCityName);
+    
+    if ~bError
+        m_szCity = szCityName;
+        m_szFileString = ['data/',m_szCity,'.xml'];
+        m_bIsInit = 1;
+        getData();
+
     end
     
-    
-    xml = xmlread(szFileString);
-    m_stWSData = parse_xml(xml);
-    m_bIsInit = 1;
 end
 
 
@@ -113,6 +87,56 @@ end
 %--------------------------- PUBLIC FUNCTIONS ---------------------------%
 %-------------------------------------------------------------------------%
 
+    function bError = updateStation()
+       if ~m_bIsInit; bError = 1; return; end;
+       bError = getData(1);
+    end
+
+    function bError = getData(bForce)
+       bError = 0;
+       if ~m_bIsInit; bError = 1; return; end;
+       
+       if nargin < 1; bForce = 0;end;
+       
+       
+       if exist(m_szFileString,'file')
+        
+        % check age of File
+        stFileInfo = dir(m_szFileString);
+        dFileAge = stFileInfo.datenum;
+        dNow = now();
+        Difference = abs(dFileAge(:) - dNow(:));
+        
+        iHours = round(mod(Difference, 1) * 24);
+        if iHours > 5
+            delete(m_szFileString);
+            bForce = 1;
+        end
+       else
+           bForce = 1;
+       end
+       
+       if bForce
+           szString = ['http://api.openweathermap.org/data/2.5/forecast/daily?q=',...
+            m_szCity,'&mode=xml&units=metric&cnt=5'];
+            urlwrite(szString,m_szFileString,'Charset','ISO-8859-1');
+       end
+       
+       xml = xmlread(m_szFileString);
+       m_stWSData = parse_xml(xml);         
+   end
+    
+    
+    function bError = changeStation(szNewCityName)
+        if ~m_bIsInit; bError = 1; return; end;
+        if strcmpi(szNewCityName,m_szCity)
+            bError = 0;
+            return;
+        end
+        bError = init(szNewCityName);
+    end
+    
+    
     function szCity = getCity()
         if ~m_bIsInit; init(); end
         szCity = m_szCity;
