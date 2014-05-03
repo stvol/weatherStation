@@ -1,7 +1,9 @@
-% Script to do something usefull (fill out)
+% This is the main file to run weather station
 % Author: S.Volke (c) IHA @ Jade Hochschule applied licence see EOF 
 % Version History:
-% Ver. 0.01 initial create (empty) 11-Apr-2014 			 Initials (eg. JB)
+% Ver. 0.01 initial create (empty)  11-Apr-2014         (SV)
+% Ver. 0.5 first working state      15-Apr-2014         (SV)
+% Ver. 1.0 add path handling        02-May-2014         (SV)
 
 clear;
 close all;
@@ -14,8 +16,6 @@ x = mfilename('fullpath');
 [d,n,e]=fileparts(x);
 addpath(genpath(d));
 
-%feature('DefaultCharacterSet', 'UTF-8');
-set(0,'defaulttextinterpreter','none');
 
 stWeather = weatherStationModel('Oldenburg');
 handles = WeatherStationGUI();
