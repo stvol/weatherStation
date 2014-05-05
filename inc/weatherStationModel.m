@@ -37,6 +37,7 @@ stWSReturn.getHumidityDataForDay = @getHumidityDataForDay;
 stWSReturn.getPressureDataForDay = @getPressureDataForDay;
 stWSReturn.changeStation = @changeStation;
 stWSReturn.updateStation = @updateStation;
+stWSReturn.getUpdateTime = @getUpdateTime;
 
 % member variables (all private)
 m_szCity = szCity;
@@ -300,6 +301,12 @@ function szPressureData = getPressureDataForDay(iDayNum)
 end
 
 %-------------------------------------------------------------------------%
+
+
+function tsUpdateTime = getUpdateTime()
+    stFileInfo = dir(m_szFileString);
+    tsUpdateTime = stFileInfo.datenum;
+end
 
 end
 

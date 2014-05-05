@@ -18,7 +18,7 @@ addpath(genpath(d));
 
 
 stWeather = weatherStationModel('Oldenburg');
-handles = WeatherStationGUI();
+handles = WeatherStationGUI(stWeather);
 updateGUI(handles,stWeather);
 
 

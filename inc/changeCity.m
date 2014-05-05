@@ -1,4 +1,4 @@
-function changeCity(handles,stWeather)
+function changeCity(~,~,handles,stWeather)
 % controller function to change weather station
 % this file is part of weather Station (see README.md)
 % to start weather station run WS_START.m
