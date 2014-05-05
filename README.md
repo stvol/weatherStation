@@ -13,6 +13,8 @@ Dies ist die Matlab-Realisierung einer kleinen Wettervorhersage für fünf Tage.
 
 Der Nutzer hat die Möglichkeit den Ort zu wechseln oder die Daten zu aktualisieren.
 
+![Screenshot Wetterstation](weatherStation.png)
+
 ## Motivation/Zielsetzung
 
 Entstanden ist das Projekt innerhalb meines Studiums an der **Jade Hochschule Oldenburg** im Fach **Daten und Algorithmen** im SS 2014 als Programmieraufgabe. Mein persönlicher Fokus lag dabei vor allem auf der Art und Weise der Implementierung, nämlich, in Matlab eine Art **Model-View-Controller Design** zu realisieren, sowie mittels *nested functions* eine klassenähnliche Struktur zu schaffen, ohne *Matlabs* speicherhungriges OOP zu verwenden.
@@ -67,7 +69,7 @@ In das Projekt eingebunden ist mit freundlicher Genehmigung des Autors die exter
 
 ### Icons
 
-Die Icons der GUI sind frei für nichtkommerzielle Projekte und stammen von [deviantart.com](http://vclouds.deviantart.com/art/VClouds-Weather-Icons-179152045).
+Die Wetter-Icons der GUI sind frei für nichtkommerzielle Projekte und stammen von [deviantart.com](http://vclouds.deviantart.com/art/VClouds-Weather-Icons-179152045).
 
 ### Wetterdaten
 
@@ -77,7 +79,7 @@ Die Wetterdaten werden über die [API](http://openweathermap.org/API) von *Open 
 
 ## Bugs
 
-Größtes Problem des Programms in der Version 1.0 ist, dass es bei manchen Standorten zu Fehlern kommt, die sich nur schwer abfangen lassen. Dabei liegt die Ursache an der API von Open Weather Map, welche besonders bei Aufrufen von Standorten mit Umlauten fehlerhafte XML-Daten liefert. Der Fehler tritt dabei beim Parsen der XML-Datei mittels `parse_xml.m` auf, in der eine JAVA Exception geworfen wird.
+Ein bekanntes Problem des Programms in der Version 1.0 ist, dass es bei manchen Standorten zu Fehlern kommt, die sich nur schwer abfangen lassen. Dabei liegt die Ursache an der API von Open Weather Map, welche besonders bei Aufrufen von Standorten mit Umlauten fehlerhafte XML-Daten liefert. Der Fehler tritt dabei beim Parsen der XML-Datei mittels `parse_xml.m` auf, in der eine JAVA Exception geworfen wird.
 
 **Beispiel:**
 
