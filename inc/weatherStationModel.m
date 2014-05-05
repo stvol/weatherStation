@@ -262,7 +262,7 @@ function szWeatherName = getWeatherNameForDay(iDayNum)
         case {'03d','03n'}
             szWeatherName = 'aufgelockert';
         case {'04d','04n'}
-            szWeatherName = 'bedeckt';
+            szWeatherName = 'stark bewölkt';
         case {'09d','09n'}
             szWeatherName = 'leichte Schauer';
         case {'10d','10n'}

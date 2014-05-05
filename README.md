@@ -11,7 +11,10 @@ Dies ist die Matlab-Realisierung einer kleinen Wettervorhersage für fünf Tage.
 + Luftfeuchtigkeit
 + Luftdruck
 
-Der Nutzer hat die Möglichkeit den Ort zu wechseln oder die Daten zu aktualisieren.
+Der Nutzer hat die Möglichkeit den Ort zu wechseln oder die Daten zu aktualisieren. Außerdem erscheint ein kleiner Tooltip, wenn man den Mauszeiger über einem Wert lässt, der erklärt um welche Daten es sich handelt.
+
+### Screenshot 
+typisch Oldenburgisches Wetter... ;-)
 
 ![Screenshot Wetterstation](weatherStation.png)
 
