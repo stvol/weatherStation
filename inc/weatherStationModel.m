@@ -40,7 +40,8 @@ stWSReturn.updateStation = @updateStation;
 stWSReturn.getUpdateTime = @getUpdateTime;
 
 % member variables (all private)
-m_szCity = szCity;
+m_szCity = '';
+m_szGivenCity = lower(szCity);
 m_stWSData = struct();
 m_bIsInit = 0;
 m_szFileString = '';
@@ -59,22 +60,30 @@ init(szCity);
 % 
 % function to check wether city exist in API
 %
-function bError = checkCity(szCityName)
+function [bError, szRealCityName] = checkCity(szCityName)
 
     % string to API
-    szString = ['http://api.openweathermap.org/data/2.5/forecast/daily?q=',...
-        szCityName,'&mode=xml&units=metric&cnt=5'];
+    szString = sprintf('http://api.openweathermap.org/data/2.5/forecast/daily?q=%s&mode=xml&units=metric&cnt=5',szCityName);
     % try to read read URL
-    [szFileContent,st] = urlread(szString,'Charset','ISO-8859-1');
-
-    % if something goes wrong...
-    if isempty(szFileContent) ||...
-           szFileContent(1) == '{' || strcmpi(szCityName,'test') || st == 0
+    try
+        szFileContent = xmlwrite(szString);
+    catch
         bError = 1;
+        szRealCityName = '';
         return;
     end
+    
+    szRealCityName = regexp(szFileContent,'(?<=<name>)(.*)(?=</name>)','match');
+    szRealCityName = szRealCityName{1};
+    % if something goes wrong...
+%     if isempty(szFileContent) ||...
+%            szFileContent(1) == '{' || strcmpi(szCityName,'test')
+%         bError = 1;
+%         return;
+%     end
 
     bError = 0;
+    
     
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -86,17 +95,19 @@ end
 function bError = init(szCityName)
 
     % city check
-    bError = checkCity(szCityName);
+    [bError, szRealCityName] = checkCity(lower(szCityName));
 
     if ~bError
         
         % set member variables
-        m_szCity = szCityName;
-        m_szFileString = ['data/',m_szCity,'.xml'];
+        m_szCity = szRealCityName;
+        m_szGivenCity = lower(szCityName);
+        m_szFileString = ['data/',m_szGivenCity,'.xml'];
         m_bIsInit = 1;
         
         % set weather data to m_stWSData
         getData();
+        
     end
 
 end
@@ -136,13 +147,13 @@ function bError = getData(bForce)
     % get new data if necessary
     if bForce
         szString = ['http://api.openweathermap.org/data/2.5/forecast/daily?q=',...
-            m_szCity,'&mode=xml&units=metric&cnt=5'];
-        urlwrite(szString,m_szFileString,'Charset','ISO-8859-1');
+            m_szGivenCity,'&mode=xml&units=metric&cnt=5'];
+        xmlwrite(m_szFileString,szString);
     end
 
     % parse xml 
     xml = xmlread(m_szFileString);
-    m_stWSData = parse_xml(xml); 
+    m_stWSData = parse_xml(xml);
     bError = 0;
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -185,7 +196,7 @@ end
 %% getter functions for data
 
 function szCity = getCity()
-    szCity = m_szCity;
+    szCity = m_stWSData.children{1}.children{1}.children{1}.children;
 end
 
 %-------------------------------------------------------------------------%

@@ -4,6 +4,8 @@
 % Ver. 0.01 initial create (empty)  11-Apr-2014         (SV)
 % Ver. 0.5 first working state      15-Apr-2014         (SV)
 % Ver. 1.0 add path handling        02-May-2014         (SV)
+% Ver. 1.1 semi fix bug handling 
+%          City names with umlaut   07-May-2014         (SV)
 
 clear;
 close all;

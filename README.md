@@ -28,6 +28,12 @@ Entstanden ist das Projekt innerhalb meines Studiums an der **Jade Hochschule Ol
 
 Das Programm enthält alle erforderlichen Dateien und benötigt keine Installation. Zum Starten einfach die Datei `WS_START.m` mit Matlab ausführen. Alle Abhängigkeiten zu anderen Dateien und Funktionen werden automatisch hergestellt.
 
+### Systemvoraussetzungen/Testumgebung
+Entwickelt wurde das Programm unter OSX 10.9 mit Matlab R2013a (Student). Zum Ausführen reicht die Standardkonfiguration, es werden keine Toolboxen benötigt.
+
+Testweise wurde die Software auch unter Windows und Matlab R2012a ausgeführt. Die prinzipielle Funktionalität bleibt dabei erhalten, allerdings ergeben sich durch Unterschiede bei der Darstellung von Fonts leichte Verschiebungen bzw. Verdeckungen in der GUI.
+
+
 ## Der Aufbau des Programms
 
 Die Implementierung in Matlab versucht eine Berücksichtigung des **MVC Entwurfmusters** um Programmlogik und Darstellung voneinander zu trennen.
@@ -82,12 +88,30 @@ Die Wetterdaten werden über die [API](http://openweathermap.org/API) von *Open 
 
 ## Bugs
 
+**\#1** (behoben in Version 1.1)
+
 Ein bekanntes Problem des Programms in der Version 1.0 ist, dass es bei manchen Standorten zu Fehlern kommt, die sich nur schwer abfangen lassen. Dabei liegt die Ursache an der API von Open Weather Map, welche besonders bei Aufrufen von Standorten mit Umlauten fehlerhafte XML-Daten liefert. Der Fehler tritt dabei beim Parsen der XML-Datei mittels `parse_xml.m` auf, in der eine JAVA Exception geworfen wird.
 
 **Beispiel:**
 
 + Die Stadt 'Fürth' wird nicht gefunden
 + Die Stadt 'Fuerth' wird gefunden und eine XML-Datei heruntergaladen, allerdings enthält der Tag `<name>F?rth</name>` ein invalides UTF-8 Zeichen, welches vermutlich den Fehler beim Parsen auslöst.
+
+------------
+
+
+**\#2**
+
+In Version 1.1 müssen Umlaute in Standortnamen ausgeschrieben werden. (Bsp: ü = ue) Bug #1 ist dafür behoben und die Stadt "Fuerth" wird nun gefunden. Seltsam bleibt, dass nach Fuerth gesucht werden muss, dann aber Fürth als Name in der XML-datei steht. 
+
+-----------
+
+**\#3**
+
+wie bereits unter "Installation/Start" aufgeführt, ist die Software in der Version 1.0 nicht plattformunabhängig einsetzbar. 
+
+
+------------
 
 ## Copyright
 
